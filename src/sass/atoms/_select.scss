@@ -1,0 +1,34 @@
+.select {
+    overflow: hidden;
+    background: lighten($gray, 2);
+    border: solid 1px darken($gray, 5);
+    border-radius: $border-radius;
+    position: relative;
+
+    img, svg {
+        width: 10px;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+    select {
+        display: block;
+        width: 110%;
+        padding: 0.5rem 1rem;
+        font-size: 1.3rem;
+        transition: border 0.2s, background 0.2s;
+        resize: none;
+        -webkit-appearance: none;
+        font-family: $font-family;
+        background: transparent;
+    }
+
+    &:hover, &:focus {
+        outline: 0;
+        border-color: $primary-color;
+        background: #fff;
+    }
+}

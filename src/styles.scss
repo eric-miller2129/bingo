@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+@import "sass/variables";
+@import "sass/global";
+
+@import "sass/organisms/homepageContainer";
+
+@import "sass/molecules/homepageForm";
+@import "sass/molecules/formRow";
+
+@import "sass/atoms/main";
+@import "sass/atoms/footer";
+@import "sass/atoms/btn";
+@import "sass/atoms/input";
+@import "sass/atoms/select";
+@import "sass/atoms/textarea";
+@import "sass/atoms/copyText";

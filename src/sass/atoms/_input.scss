@@ -1,0 +1,16 @@
+input {
+    width: 100%;
+    background: lighten($gray, 2);
+    border: solid 1px darken($gray, 5);
+    padding: 0.5rem 1rem;
+    font-size: 1.3rem;
+    transition: border 0.2s, background 0.2s;
+    border-radius: $border-radius;
+    font-family: $font-family;
+
+    &:hover, &:focus {
+        outline: 0;
+        border-color: $primary-color;
+        background: #fff;
+    }
+}

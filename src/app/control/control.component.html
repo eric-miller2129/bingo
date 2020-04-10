@@ -1,0 +1,140 @@
+<div class="cardContainer" *ngIf="gFacade.game$ | async as game">
+    <h1>{{ game.name }}</h1>
+    <div class="ballsLast5 withMarginBottom">
+        <span class="ballsLast5--header">Last 5 Numbers:</span>
+        <div class="ball b">
+            <div>
+                <span class="letter">B</span>
+                <span class="number">5</span>
+            </div>
+        </div>
+        <div class="ball i">
+            <div>
+                <span class="letter">I</span>
+                <span class="number">23</span>
+            </div>
+        </div>
+        <div class="ball n">
+            <div>
+                <span class="letter">N</span>
+                <span class="number">40</span>
+            </div>
+        </div>
+        <div class="ball g">
+            <div>
+                <span class="letter">G</span>
+                <span class="number">69</span>
+            </div>
+        </div>
+        <div class="ball g">
+            <div>
+                <span class="letter">G</span>
+                <span class="number">69</span>
+            </div>
+        </div>
+    </div>
+    <div class="bingoCard">
+        <div class="title">
+            B
+        </div>
+        <div class="title">
+            I
+        </div>
+        <div class="title">
+            N
+        </div>
+        <div class="title">
+            G
+        </div>
+        <div class="title">
+            O
+        </div>
+        <div>
+            B
+        </div>
+        <div>
+            I
+        </div>
+        <div>
+            N
+        </div>
+        <div>
+            G
+        </div>
+        <div>
+            O
+        </div>
+        <div>
+            B
+        </div>
+        <div>
+            I
+        </div>
+        <div>
+            N
+        </div>
+        <div>
+            G
+        </div>
+        <div>
+            O
+        </div>
+        <div>
+            B
+        </div>
+        <div>
+            I
+        </div>
+        <div>
+            FREE
+        </div>
+        <div>
+            G
+        </div>
+        <div>
+            O
+        </div>
+        <div>
+            B
+        </div>
+        <div>
+            I
+        </div>
+        <div>
+            N
+        </div>
+        <div>
+            G
+        </div>
+        <div>
+            O
+        </div>
+        <div>
+            B
+        </div>
+        <div>
+            I
+        </div>
+        <div>
+            N
+        </div>
+        <div>
+            G
+        </div>
+        <div>
+            O
+        </div>
+    </div>
+</div>
+<swal
+    [swalOptions]="{
+        showCancelButton: false,
+        input: 'text',
+        buttonClass: 'btn'
+    }"
+    (confirm)="join($event)"
+    #name>
+    <ng-container *swalPortal>
+        What's your name?
+    </ng-container>
+</swal>

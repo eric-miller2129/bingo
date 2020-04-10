@@ -1,0 +1,45 @@
+.bingoCard {
+    display: grid;
+    grid-template: 20px repeat(5, 1fr) / repeat(5, 1fr);
+    gap: 5px;
+    padding: 5px;
+    background: $primary-color;
+    height: calc(100vw - 40px);
+    box-shadow: $box-shadow;
+
+    & > div {
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        position: relative;
+        z-index: 1;
+
+        &.active:after {
+            content: '';
+            width: 70%;
+            height: 70%;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(yellow, 0.4);
+            z-index: -1;
+        }
+    }
+    .title {
+        font-weight: bold;
+        background: $primary-color;
+        color: #fff;
+
+        &:after {
+            display: none;
+        }
+    }
+
+    @media screen and (min-width: 1120px) {
+        height: 900px;
+    }
+}

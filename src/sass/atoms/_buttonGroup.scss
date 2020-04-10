@@ -1,0 +1,13 @@
+.buttonGroup {
+    display: block;
+    width: 100%;
+    text-align: center;
+
+    button {
+        margin-left: 2rem;
+    }
+
+    button:first-child {
+        margin-left: 0;
+    }
+}

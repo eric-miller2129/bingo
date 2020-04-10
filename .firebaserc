@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "bingo-682f7": {
+      "hosting": {
+        "bingo": [
+          "bingo-682f7"
+        ]
+      }
+    }
+  }
+}

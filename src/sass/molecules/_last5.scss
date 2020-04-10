@@ -1,0 +1,26 @@
+.ballsLast5 {
+    display: flex;
+    background: #fff;
+    border-radius: $border-radius;
+    padding: 1rem;
+    box-shadow: $box-shadow;
+    flex-wrap: wrap;
+
+    &--header {
+        flex: 100%;
+        font-weight: bold;
+        margin-bottom:  1rem;
+        padding-left: 1rem;
+        font-size: 1.6rem;
+    }
+    .ball {
+        font-size: 0.4em;
+        margin: 0 0.2em;
+    }
+
+    @media screen and (min-width: 800px){
+        .ball {
+            margin: 0 1rem;
+        }
+    }
+}

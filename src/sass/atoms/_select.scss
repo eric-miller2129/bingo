@@ -24,6 +24,10 @@
         -webkit-appearance: none;
         font-family: $font-family;
         background: transparent;
+
+        &:focus {
+            outline: 0;
+        }
     }
 
     &:hover, &:focus {

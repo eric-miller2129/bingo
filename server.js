@@ -14,13 +14,18 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    socket.on('join_game', slug => {
-        console.log(slug);
+    socket.on('create_game', slug => {
+        console.log(`Creating game: ${slug}`);
         socket.join(slug);
     });
 
-    socket.on('send_message', data => {
-        socket.in(data.slug).emit('message', 'test message!');
+    socket.on('join_game', data => {
+        console.log('user joining game', data);
+        socket.join(data.slug);
+        io.to(data.slug).emit('user_joined', data.name);
+    });
+    socket.on('leave_game', data => {
+        io.to(data.slug).emit('user_left', data.name);
     })
 })
 

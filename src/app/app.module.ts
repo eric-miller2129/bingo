@@ -4,6 +4,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ToastrModule } from 'ngx-toastr';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,8 @@ import { environment } from '../environments/environment';
 import { ControlComponent } from './control/control.component';
 import { GameComponent } from './game/game.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
 @NgModule({
     declarations: [
@@ -34,6 +37,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         AngularFirestoreModule,
         ToastrModule.forRoot(),
         BrowserAnimationsModule,
+        SocketIoModule.forRoot(config),
     ],
     providers: [],
     bootstrap: [AppComponent]

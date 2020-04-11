@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { VoiceService } from '../_core/services/voice.service';
 import { ActivatedRoute } from '@angular/router';
 import { GameFacade } from '../_core/facades/game.facade';
-import { WebsocketService } from '../_core/services/websocket.service';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-game',
@@ -17,26 +17,25 @@ export class GameComponent implements OnInit {
         private voice: VoiceService,
         public gFacade: GameFacade,
         private route: ActivatedRoute,
-        private wsService: WebsocketService
+        private socket: Socket,
     ) {
         this.gFacade.setGame(this.slug);
-        this.wsService.join(this.slug);
+        this.socket.emit('create_game', this.slug);
     }
 
     ngOnInit(): void {
-        // this.socket.on('joined', user => {
-        //     this.toaster.info(`${user.name} joined the game`, null, {
-        //         progressAnimation: 'decreasing',
-        //         positionClass: 'toast-bottom-right'
-        //     });
-        // });
-        // this.socket.on('userLeft', user => {
-        //     console.log(`${user.name} left!`);
-        //     this.toaster.error(`${user.name} left the game`, null, {
-        //         progressAnimation: 'decreasing',
-        //         positionClass: 'toast-bottom-right'
-        //     });
-        // });
+        this.socket.on('user_joined', user => {
+            this.toaster.info(`${user} joined the game`, null, {
+                progressAnimation: 'decreasing',
+                positionClass: 'toast-bottom-right'
+            });
+        });
+        this.socket.on('user_left', user => {
+            this.toaster.error(`${user} left the game`, null, {
+                progressAnimation: 'decreasing',
+                positionClass: 'toast-bottom-right'
+            });
+        });
     }
 
     callNumber(calledNumber: number) {

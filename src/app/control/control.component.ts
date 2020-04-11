@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { GameFacade } from '../_core/facades/game.facade';
 import { ActivatedRoute } from '@angular/router';
-import { WebsocketService } from '../_core/services/websocket.service';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
     selector: 'app-control',
@@ -16,22 +16,21 @@ export class ControlComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         public gFacade: GameFacade,
-        private wsService: WebsocketService,
+        private socket: Socket,
     ) {
         this.gFacade.setGame(this.slug);
-        this.wsService.join(this.slug);
     }
 
     ngOnInit(): void {
         this.name.fire();
 
         window.addEventListener('unload', (e) => {
-            // this.socket.emit('leftGame', { name: 'Eric' });
+            this.socket.emit('leave_game', { name: 'Eric', slug: this.slug });
         });
     }
 
     join(name: string) {
-        // this.socket.emit('joinGame', { name });
+        this.socket.emit('join_game', { name, slug: this.slug });
     }
 
 }

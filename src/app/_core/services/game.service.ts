@@ -12,9 +12,6 @@ import { map } from 'rxjs/operators';
 export class GameService {
     private collection: AngularFirestoreCollection = this.afStore.collection<Game[]>('games');
 
-    private gameSubject: BehaviorSubject<Game> = new BehaviorSubject<Game>({} as Game);
-    public game$ = this.gameSubject.asObservable();
-
     constructor(
         private afStore: AngularFirestore,
     ) { }
@@ -28,6 +25,19 @@ export class GameService {
                 .collection<Game>('games', ref => ref.where('slug', '==', slug))
                 .snapshotChanges();
     }
+    addNumber(id: string, ball: Ball) {
+        return this.afStore
+                .doc(`balls/${id}`)
+                .collection('called')
+                .add(ball);
+    }
+
+    getNumbers(id: string) {
+        return this.afStore
+                .doc(`balls/${id}`)
+                .collection<Ball>('called', ref => ref.orderBy('dateAdded', 'desc'));
+    }
+
     public randomString() {
         const chars = '0123456789abcdefghijklmnopqrstuvwxyz';
         const length = Math.floor(Math.random() * 10) + 6;

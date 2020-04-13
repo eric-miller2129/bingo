@@ -1,37 +1,15 @@
 <div class="cardContainer" *ngIf="gFacade.game$ | async as game">
     <h1>{{ game.name }}</h1>
-    <div class="ballsLast5 withMarginBottom">
+    <div class="ballsLast5 withMarginBottom" *ngIf="gFacade.numbers$ | async as numbers">
         <span class="ballsLast5--header">Last 5 Numbers:</span>
-        <div class="ball b">
-            <div>
-                <span class="letter">B</span>
-                <span class="number">5</span>
+        <ng-container *ngFor="let n of numbers; let i=index"> 
+            <div class="ball b" *ngIf="i < 5">
+                <div>
+                    <span class="letter">{{ n.letter }}</span>
+                    <span class="number">{{ n.number }}</span>
+                </div>
             </div>
-        </div>
-        <div class="ball i">
-            <div>
-                <span class="letter">I</span>
-                <span class="number">23</span>
-            </div>
-        </div>
-        <div class="ball n">
-            <div>
-                <span class="letter">N</span>
-                <span class="number">40</span>
-            </div>
-        </div>
-        <div class="ball g">
-            <div>
-                <span class="letter">G</span>
-                <span class="number">69</span>
-            </div>
-        </div>
-        <div class="ball g">
-            <div>
-                <span class="letter">G</span>
-                <span class="number">69</span>
-            </div>
-        </div>
+        </ng-container>
     </div>
     <div class="bingoCard">
         <div class="title">

@@ -20,6 +20,7 @@ export class GameComponent implements OnInit {
         private socket: Socket,
     ) {
         this.gFacade.setGame(this.slug);
+
         this.socket.emit('create_game', this.slug);
     }
 
@@ -39,7 +40,7 @@ export class GameComponent implements OnInit {
     }
 
     callNumber(calledNumber: number) {
-        // this.gService.addBall({ letter: 'G', number: calledNumber, dateAdded: new Date() }, this.slug);
+        this.gFacade.addNumber({ letter: 'G', number: calledNumber, dateAdded: new Date() }, this.gFacade.game.id);
         this.voice.speak(`B ${calledNumber}`);
     }
 

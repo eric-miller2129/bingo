@@ -20,7 +20,6 @@ io.on('connection', (socket) => {
     });
 
     socket.on('join_game', data => {
-        console.log('user joining game', data);
         socket.join(data.slug);
         io.to(data.slug).emit('user_joined', data.name);
     });

@@ -26,9 +26,9 @@
             </div>
         </div>
     </div> -->
-    <!-- <div>
+    <div>
         <h2 class="withMarginBottom">Numbers called this game:</h2>
-        <div class="numbersPulled" *ngIf="called$ | async as numbersCalled">
+        <div class="numbersPulled" *ngIf="gFacade.numbers$ | async as numbersCalled">
             <div class="numbersPulled--none" *ngIf="!numbersCalled.length">
                 No numbers called yet!
             </div>
@@ -45,5 +45,5 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 </div>

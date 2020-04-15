@@ -1,5 +1,7 @@
 export const environment = {
     production: true,
+    url: 'https://letsgo.bingo',
+    socketUrl: 'https://socket.letsgo.bingo',
     firebase: {
         apiKey: 'AIzaSyALHFEVo8yoFmIKyy-HNoxYpKOY4LG2vFY',
         authDomain: 'bingo-682f7.firebaseapp.com',

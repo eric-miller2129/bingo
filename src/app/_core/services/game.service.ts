@@ -40,7 +40,7 @@ export class GameService {
 
     public randomString() {
         const chars = '0123456789abcdefghijklmnopqrstuvwxyz';
-        const length = Math.floor(Math.random() * 10) + 6;
+        const length = Math.floor(Math.random() * 6) + 4;
 
         let result = '';
 

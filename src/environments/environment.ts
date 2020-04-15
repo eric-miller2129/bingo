@@ -5,6 +5,7 @@
 export const environment = {
     production: false,
     url: 'https://localhost:4200',
+    socketUrl: 'http://localhost:4444',
     firebase: {
         apiKey: 'AIzaSyALHFEVo8yoFmIKyy-HNoxYpKOY4LG2vFY',
         authDomain: 'bingo-682f7.firebaseapp.com',

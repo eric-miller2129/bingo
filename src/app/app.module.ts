@@ -16,7 +16,7 @@ import { ControlComponent } from './control/control.component';
 import { GameComponent } from './game/game.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
+const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
 @NgModule({
     declarations: [

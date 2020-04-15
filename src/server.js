@@ -2,9 +2,9 @@ const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const cors = require('cors');
-console.log(process.env.URL);
+
 app.use(cors({
-    origin: process.env.URL
+    origin: process.env.URL || 'http://localhost:4444'
 }));
 
 app.get('/', (req, res) => {

@@ -25,6 +25,10 @@ io.on('connection', (socket) => {
     });
     socket.on('leave_game', data => {
         io.to(data.slug).emit('user_left', data.name);
+    });
+
+    socket.on('number_called', data => {
+        io.to(data.slug).emit('number_called', data.ball);
     })
 })
 

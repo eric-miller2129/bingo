@@ -1,6 +1,6 @@
 <div class="cardContainer" *ngIf="gFacade.game$ | async as game">
     <h1>{{ game.name }}</h1>
-    <div class="ballsLast5 withMarginBottom" *ngIf="gFacade.numbers$ | async as numbers">
+    <div class="ballsLast5 withMarginBottom" *ngIf="cFacade.balls$ | async as numbers">
         <span class="ballsLast5--header">Last 5 Numbers:</span>
         <ng-container *ngFor="let n of numbers; let i=index"> 
             <div class="ball b" *ngIf="i < 5">

@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { GameFacade } from '../_core/facades/game.facade';
 import { ActivatedRoute } from '@angular/router';
 import { Socket } from 'ngx-socket-io';
+import { ControlFacade } from '../_core/facades/control.facade';
 
 @Component({
     selector: 'app-control',
@@ -16,6 +17,7 @@ export class ControlComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         public gFacade: GameFacade,
+        public cFacade: ControlFacade,
         private socket: Socket,
     ) {
         this.gFacade.setGame(this.slug);
@@ -26,6 +28,9 @@ export class ControlComponent implements OnInit {
 
         window.addEventListener('unload', (e) => {
             this.socket.emit('leave_game', { name: 'Eric', slug: this.slug });
+        });
+        this.socket.on('number_called', ball => {
+            this.cFacade.newBall(ball);
         });
     }
 

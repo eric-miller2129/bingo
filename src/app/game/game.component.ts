@@ -40,8 +40,11 @@ export class GameComponent implements OnInit {
     }
 
     callNumber(calledNumber: number) {
-        this.gFacade.addNumber({ letter: 'G', number: calledNumber, dateAdded: new Date() }, this.gFacade.game.id);
+        const ball = { letter: 'G', number: calledNumber, dateAdded: new Date() };
+
+        this.gFacade.addNumber(ball, this.gFacade.game.id);
         this.voice.speak(`B ${calledNumber}`);
+        this.socket.emit('number_called', { ball, slug: this.slug });
     }
 
 }

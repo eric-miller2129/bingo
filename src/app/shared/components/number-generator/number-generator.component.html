@@ -1,6 +1,9 @@
-<div class="ball b">
+<ng-container *ngIf="number$ | async as ball">
+<div
+    class="ball {{ ball.letter | lowercase }}">
     <div>
-        <span class="letter">B</span>
-        <span class="number">{{ number$ | async }}</span>
+        <span class="letter">{{ ball.letter }}</span>
+        <span class="number">{{ ball.number }}</span>
     </div>
 </div>
+</ng-container>

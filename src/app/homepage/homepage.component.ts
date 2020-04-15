@@ -22,6 +22,7 @@ export class HomepageComponent implements OnInit {
     ngOnInit(): void {
         this.url = environment.url;
         this.form = this.fb.group({
+            email: ['', [Validators.required]],
             name: ['', [Validators.required]],
             gameType: ['standard', Validators.required],
             prizes: ['', [Validators.required]],
@@ -39,4 +40,7 @@ export class HomepageComponent implements OnInit {
         this.gService.createGame(this.form.value);
     }
 
+    makeItVibrate() {
+        window.navigator.vibrate([100,100,100,100]);
+    }
 }

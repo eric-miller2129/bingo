@@ -16,8 +16,10 @@
             O
         </div>
         <ng-container *ngFor="let r of numbers; index as i">
-            <div *ngFor="let c of numbers[i]">
-                {{ c || 'FREE' }}
-            </div>
+            <ng-container *ngFor="let c of numbers[i]">
+                <div [ngClass]="{ active: c === 'FREE' }">
+                    {{ c || 'FREE' }}
+                </div>
+            </ng-container>
         </ng-container>
     </div>

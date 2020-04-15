@@ -9,4 +9,5 @@ export interface Game {
     slug: string;
     balls: Ball[];
     players: Player[];
+    email: string;
 }

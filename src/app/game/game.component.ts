@@ -1,3 +1,4 @@
+import { Ball } from './../_core/models/Ball';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { VoiceService } from '../_core/services/voice.service';
@@ -39,11 +40,11 @@ export class GameComponent implements OnInit {
         });
     }
 
-    callNumber(calledNumber: number) {
-        const ball = { letter: 'G', number: calledNumber, dateAdded: new Date() };
+    callNumber(calledNumber: Ball) {
+        const ball = { ...calledNumber, dateAdded: new Date() };
 
         this.gFacade.addNumber(ball, this.gFacade.game.id);
-        this.voice.speak(`B ${calledNumber}`);
+        // this.voice.speak(`B ${calledNumber}`);
         this.socket.emit('number_called', { ball, slug: this.slug });
     }
 

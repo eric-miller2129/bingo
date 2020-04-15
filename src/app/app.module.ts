@@ -5,6 +5,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ToastrModule } from 'ngx-toastr';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io'
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,6 +39,7 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
         ToastrModule.forRoot(),
         BrowserAnimationsModule,
         SocketIoModule.forRoot(config),
+        HttpClientModule
     ],
     providers: [],
     bootstrap: [AppComponent]

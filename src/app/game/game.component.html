@@ -9,7 +9,7 @@
         </button>
     </div>
     <div class="currentNumber withMarginBottom2x">
-        <app-number-generator 
+        <app-number-generator
             #ball
             (iHaveChosen)="callNumber($event)"
         ></app-number-generator>
@@ -33,7 +33,7 @@
                 No numbers called yet!
             </div>
             <div *ngIf="numbersCalled">
-                <div class="ball g" *ngFor="let ball of numbersCalled">
+                <div class="ball {{ ball.letter | lowercase }}" *ngFor="let ball of numbersCalled">
                     <div>
                         <span class="letter">
                             {{ ball.letter }}

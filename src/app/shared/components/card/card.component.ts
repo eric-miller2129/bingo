@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-    private settings: Array<object> = [
+    private settings: Array<any> = [
         {
             min: 1,
             max: 19
@@ -28,13 +28,13 @@ export class CardComponent implements OnInit {
             max: 100
         }
     ];
-    numbers: any = [
+    numbers: any = new Array(
         [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0],
-    ];
+    );
 
     constructor() {}
 
@@ -43,18 +43,21 @@ export class CardComponent implements OnInit {
     }
 
     async build() {
-        let rowIndex = 0;
-        let colIndex = 0;
+        // tslint:disable-next-line: prefer-for-of
+        for (let r = 0; r < this.numbers.length; r++) {
+            // tslint:disable-next-line: prefer-for-of
+            for (let c = 0; c < this.numbers[r].length; c++) {
+                if (r === 2 && c === 2) {
+                    this.numbers[2][2] = 'FREE';
+                } else {
+                    this.numbers[r][c] = this.randomNumber(this.settings[c].min, this.settings[c].max);
+                }
+            }
+        }
+    }
 
-        // do {
-        //     do {
-        //         this.numbers[row][col] = 12;
-        //         col++;
-        //     } while (col < this.numbers[row].length);
-
-        //     col = 0;
-        //     row++;
-        // } while (row < this.numbers.length);
+    private randomNumber(min: number, max: number){
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
 }

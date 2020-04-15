@@ -3,8 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Game } from '../models/Game';
 import { AngularFirestoreCollection } from '@angular/fire/firestore/public_api';
 import { Ball } from '../models/Ball';
-import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -14,10 +14,16 @@ export class GameService {
 
     constructor(
         private afStore: AngularFirestore,
+        private http: HttpClient,
     ) { }
 
     createGame(data: Game) {
-        return this.collection.add(data);
+        return this.collection.add(data).then((gameData) => {
+            this.http.post(`${environment.socketUrl}/created-game`, data)
+                .subscribe(res => {
+                    console.log('sent!');
+                })
+        });
     }
 
     setGame(slug: string) {
@@ -40,7 +46,7 @@ export class GameService {
 
     public randomString() {
         const chars = '0123456789abcdefghijklmnopqrstuvwxyz';
-        const length = Math.floor(Math.random() * 6) + 4;
+        const length = Math.floor(Math.random() * (6 - 4 + 1) + 4);
 
         let result = '';
 

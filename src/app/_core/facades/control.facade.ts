@@ -10,6 +10,7 @@ export class ControlFacade {
     public balls$ = this.ballSubject.asObservable();
 
     newBall(ball: Ball) {
+        window.navigator.vibrate([100, 100, 100, 100]);
         this.ballSubject.next([
             ball,
             ...this.balls

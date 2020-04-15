@@ -1,16 +1,27 @@
-const app = require('express')();
+require('dotenv').config();
+
+const express = require('express');
+const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const cors = require('cors');
 
+const emailService = require('./mailer');
+
+app.use(express.json());
+
 app.use(cors({
-    origin: process.env.URL || 'http://localhost:4444'
+    origin: process.env.URL || 'http://localhost:4200'
 }));
 
-app.get('/', (req, res) => {
-    res.send({
-        test: 'hello'
-    })
+app.post('/created-game', (req, res) => {
+    emailService.sendGameCreated(req.body.email, req.body.slug).then(() => {
+        res.send({
+            message: 'sent!'
+        });
+    }).catch((e) => {
+        console.log(e);
+    });
 });
 
 io.on('connection', (socket) => {

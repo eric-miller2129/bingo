@@ -6,6 +6,14 @@
             <form [formGroup]="form" (submit)="submit()">
                 <div class="formRow withMarginBottom">
                     <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        formControlName="email">
+                    <label for="email">Your Email:</label>
+                </div>
+                <div class="formRow withMarginBottom">
+                    <input
                         type="text"
                         name="name"
                         id="name"
@@ -17,7 +25,7 @@
                         <img src="/assets/img/caret-down.svg">
                         <select formControlName="gameType">
                             <option value="standard">Standard 75 Ball</option>
-                            <option value="100">100 Ball</option>
+                            <option value="ball100">100 Ball</option>
                         </select>
                     </div>
                     <label for="gameType">Game Type:</label>
@@ -37,13 +45,13 @@
                     </button>
                 </div>
             </form>
-            <div class="copyText">
+            <div class="copyText" *ngIf="false">
                 <input
                     type="text"
                     [value]="url">
                 <span>
                     {{ url }}
-                    <a 
+                    <a
                         href="#"
                         [appCopyClipboard]="url"
                         (copied)="copied($event)"

@@ -1,0 +1,23 @@
+
+    <div class="bingoCard">
+        <div class="title">
+            B
+        </div>
+        <div class="title">
+            I
+        </div>
+        <div class="title">
+            N
+        </div>
+        <div class="title">
+            G
+        </div>
+        <div class="title">
+            O
+        </div>
+        <ng-container *ngFor="let r of numbers; index as i">
+            <div *ngFor="let c of numbers[i]">
+                {{ c || 'FREE' }}
+            </div>
+        </ng-container>
+    </div>

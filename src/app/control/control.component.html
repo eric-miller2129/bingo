@@ -2,7 +2,7 @@
     <h1>{{ game.name }}</h1>
     <div class="ballsLast5 withMarginBottom" *ngIf="cFacade.balls$ | async as numbers">
         <span class="ballsLast5--header">Last 5 Numbers:</span>
-        <ng-container *ngFor="let n of numbers; let i=index"> 
+        <ng-container *ngFor="let n of numbers; let i=index">
             <div class="ball b" *ngIf="i < 5">
                 <div>
                     <span class="letter">{{ n.letter }}</span>
@@ -11,98 +11,8 @@
             </div>
         </ng-container>
     </div>
-    <div class="bingoCard">
-        <div class="title">
-            B
-        </div>
-        <div class="title">
-            I
-        </div>
-        <div class="title">
-            N
-        </div>
-        <div class="title">
-            G
-        </div>
-        <div class="title">
-            O
-        </div>
-        <div>
-            B
-        </div>
-        <div>
-            I
-        </div>
-        <div>
-            N
-        </div>
-        <div>
-            G
-        </div>
-        <div>
-            O
-        </div>
-        <div>
-            B
-        </div>
-        <div>
-            I
-        </div>
-        <div>
-            N
-        </div>
-        <div>
-            G
-        </div>
-        <div>
-            O
-        </div>
-        <div>
-            B
-        </div>
-        <div>
-            I
-        </div>
-        <div>
-            FREE
-        </div>
-        <div>
-            G
-        </div>
-        <div>
-            O
-        </div>
-        <div>
-            B
-        </div>
-        <div>
-            I
-        </div>
-        <div>
-            N
-        </div>
-        <div>
-            G
-        </div>
-        <div>
-            O
-        </div>
-        <div>
-            B
-        </div>
-        <div>
-            I
-        </div>
-        <div>
-            N
-        </div>
-        <div>
-            G
-        </div>
-        <div>
-            O
-        </div>
-    </div>
+    <app-card
+        #bingoCard></app-card>
 </div>
 <swal
     [swalOptions]="{

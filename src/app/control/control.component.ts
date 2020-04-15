@@ -4,6 +4,7 @@ import { GameFacade } from '../_core/facades/game.facade';
 import { ActivatedRoute } from '@angular/router';
 import { Socket } from 'ngx-socket-io';
 import { ControlFacade } from '../_core/facades/control.facade';
+import { CardComponent } from '../shared/components/card/card.component';
 
 @Component({
     selector: 'app-control',
@@ -11,6 +12,7 @@ import { ControlFacade } from '../_core/facades/control.facade';
 })
 export class ControlComponent implements OnInit {
     @ViewChild('name', { static: true }) private name: SwalComponent;
+    @ViewChild('bingoCard') private card: CardComponent;
 
     private slug: string = this.route.snapshot.params.slug;
 
@@ -36,6 +38,7 @@ export class ControlComponent implements OnInit {
 
     join(name: string) {
         this.socket.emit('join_game', { name, slug: this.slug });
+        this.card.build();
     }
 
 }

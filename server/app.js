@@ -40,6 +40,10 @@ io.on('connection', (socket) => {
 
     socket.on('number_called', data => {
         io.to(data.slug).emit('number_called', data.ball);
+    });
+
+    socket.on('new_game', data => {
+        io.to(data.previous).emit('new_game', data.new);
     })
 })
 

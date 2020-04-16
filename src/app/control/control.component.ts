@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { GameFacade } from '../_core/facades/game.facade';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Socket } from 'ngx-socket-io';
 import { ControlFacade } from '../_core/facades/control.facade';
 import { CardComponent } from '../shared/components/card/card.component';
@@ -21,6 +21,7 @@ export class ControlComponent implements OnInit {
         public gFacade: GameFacade,
         public cFacade: ControlFacade,
         private socket: Socket,
+        private router: Router,
     ) {
         this.gFacade.setGame(this.slug);
     }
@@ -33,6 +34,14 @@ export class ControlComponent implements OnInit {
         });
         this.socket.on('number_called', ball => {
             this.cFacade.newBall(ball);
+        });
+
+        this.socket.on('new_game', slug => {
+            this.slug = slug;
+            this.gFacade.setGame(slug);
+            this.name.fire();
+            this.cFacade.reset();
+            this.router.navigate(['/control', slug]);
         });
     }
 

@@ -20,4 +20,8 @@ export class ControlFacade {
     get balls() {
         return this.ballSubject.getValue();
     }
+
+    reset() {
+        this.ballSubject.next([]);
+    }
 }

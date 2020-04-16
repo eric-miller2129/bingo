@@ -3,6 +3,7 @@
     border-radius: $border-radius;
     box-shadow: $box-shadow;
     padding: 2rem;
+    font-size: 1rem;
 
     & > div {
         display: flex;
@@ -26,6 +27,12 @@
             font-size: 3rem;
             font-weight: bold;
             color: rgba($black, 0.2);
+        }
+    }
+
+    @media screen and (max-width: 430px) {
+        & > div {
+            font-size: 0.9rem;
         }
     }
 }

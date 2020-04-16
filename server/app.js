@@ -17,7 +17,8 @@ app.use(cors({
 app.post('/created-game', (req, res) => {
     emailService.sendGameCreated(req.body.email, req.body.slug).then(() => {
         res.send({
-            message: 'sent!'
+            gameUrl: `${process.env.URL}/game/${req.body.slug}`,
+            controlUrl: `${process.env.URL}/control/${req.body.slug}`,
         });
     }).catch((e) => {
         console.log(e);

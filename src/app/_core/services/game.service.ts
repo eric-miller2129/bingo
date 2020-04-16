@@ -19,10 +19,7 @@ export class GameService {
 
     createGame(data: Game) {
         return this.collection.add(data).then((gameData) => {
-            this.http.post(`${environment.socketUrl}/created-game`, data)
-                .subscribe(res => {
-                    console.log('sent!');
-                });
+            return this.http.post(`${environment.socketUrl}/created-game`, data);
         });
     }
 

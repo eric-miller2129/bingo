@@ -39,6 +39,8 @@ export class HomepageComponent implements OnInit {
         console.log('[Homepage] Slug: ', slug);
         this.form.get('slug').setValue(slug);
 
-        this.gService.createGame(this.form.value);
+        (await this.gService.createGame(this.form.value)).subscribe(data => {
+            console.log(data);
+        });
     }
 }

@@ -34,13 +34,11 @@ export class HomepageComponent implements OnInit {
         this.copySwal.fire();
     }
 
-    submit() {
-        this.form.get('slug').setValue(this.gService.randomString());
+    async submit() {
+        const slug = await this.gService.randomString();
+        console.log('[Homepage] Slug: ', slug);
+        this.form.get('slug').setValue(slug);
 
         this.gService.createGame(this.form.value);
-    }
-
-    makeItVibrate() {
-        window.navigator.vibrate([100,100,100,100]);
     }
 }

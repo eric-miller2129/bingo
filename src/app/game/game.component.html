@@ -14,18 +14,6 @@
             (iHaveChosen)="callNumber($event)"
         ></app-number-generator>
     </div>
-    <!-- <div class="currentNumber marginBottom2x">
-        <div class="ball g">
-            <div>
-                <span class="letter">
-                    G
-                </span>
-                <span class="number">
-                    64
-                </span>
-            </div>
-        </div>
-    </div> -->
     <div>
         <h2 class="withMarginBottom">Numbers called this game:</h2>
         <div class="numbersPulled" *ngIf="gFacade.numbers$ | async as numbersCalled">

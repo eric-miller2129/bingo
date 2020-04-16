@@ -1,3 +1,5 @@
+import { GameFacade } from './../../../_core/facades/game.facade';
+import { SettingsService } from './../../../_core/services/settings.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,28 +8,10 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-    private settings: Array<any> = [
-        {
-            min: 1,
-            max: 19
-        },
-        {
-            min: 20,
-            max: 39
-        },
-        {
-            min: 40,
-            max: 59
-        },
-        {
-            min: 60,
-            max: 79
-        },
-        {
-            min: 80,
-            max: 100
-        }
-    ];
+    private gameSettings = this.settings.minMax[this.gFacade.game.gameType];
+    private maxNumber = this.gameSettings[this.gameSettings.length - 1].max;
+    private numbersOnCard = [];
+
     numbers: any = new Array(
         [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0],
@@ -36,7 +20,10 @@ export class CardComponent implements OnInit {
         [0, 0, 0, 0, 0],
     );
 
-    constructor() {}
+    constructor(
+        private settings: SettingsService,
+        private gFacade: GameFacade,
+    ) {}
 
     ngOnInit(): void {
         console.log('[Card] Initialized');
@@ -50,14 +37,22 @@ export class CardComponent implements OnInit {
                 if (r === 2 && c === 2) {
                     this.numbers[2][2] = 'FREE';
                 } else {
-                    this.numbers[r][c] = this.randomNumber(this.settings[c].min, this.settings[c].max);
+                    this.numbers[r][c] = this.randomNumber(this.gameSettings[c].min, this.gameSettings[c].max);
                 }
             }
         }
     }
 
     private randomNumber(min: number, max: number){
-        return Math.floor(Math.random() * (max - min + 1) + min);
+        const rolledNumber = Math.floor(Math.random() * (max - min + 1) + min);
+
+        if (this.numbersOnCard.includes(rolledNumber)) {
+            console.log('[Card Component] Hit duplicate', rolledNumber);
+            return this.randomNumber(min, max);
+        }
+        this.numbersOnCard.push(rolledNumber);
+
+        return rolledNumber;
     }
 
 }

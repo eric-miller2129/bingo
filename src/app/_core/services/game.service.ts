@@ -22,7 +22,7 @@ export class GameService {
             this.http.post(`${environment.socketUrl}/created-game`, data)
                 .subscribe(res => {
                     console.log('sent!');
-                })
+                });
         });
     }
 
@@ -44,7 +44,7 @@ export class GameService {
                 .collection<Ball>('called', ref => ref.orderBy('dateAdded', 'desc'));
     }
 
-    public randomString() {
+    public async randomString() {
         const chars = '0123456789abcdefghijklmnopqrstuvwxyz';
         const length = Math.floor(Math.random() * (6 - 4 + 1) + 4);
 
@@ -52,6 +52,13 @@ export class GameService {
 
         for (let i = length; i > 0; --i) {
             result += chars[Math.floor(Math.random() * chars.length)];
+        }
+
+        const uniqueId = await this.afStore.collection<Game>('games', ref => ref.where('slug', '==', result)).get().toPromise();
+
+        if (uniqueId.size) {
+            console.log('[Game Service] found record with this slug.');
+            return this.randomString();
         }
 
         return result;

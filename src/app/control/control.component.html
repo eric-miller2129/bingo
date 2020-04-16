@@ -3,7 +3,7 @@
     <div class="ballsLast5 withMarginBottom" *ngIf="cFacade.balls$ | async as numbers">
         <span class="ballsLast5--header">Last 5 Numbers:</span>
         <ng-container *ngFor="let n of numbers; let i=index">
-            <div class="ball b" *ngIf="i < 5">
+            <div class="ball {{ n.letter | lowercase }}" *ngIf="i < 5">
                 <div>
                     <span class="letter">{{ n.letter }}</span>
                     <span class="number">{{ n.number }}</span>

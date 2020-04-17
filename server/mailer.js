@@ -16,7 +16,7 @@ const transport = mailgunTransport(mgOptions);
 class EmailService {
     email = new Email({
         message: {
-            from: '"LetsGo.bingo" <test@letsgo.bingo>',
+            from: '"LetsGo.bingo" <no-reply@letsgo.bingo>',
         },
         views: {
             root: __dirname,

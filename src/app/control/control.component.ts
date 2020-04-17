@@ -17,7 +17,7 @@ export class ControlComponent implements OnInit {
     @ViewChild('bingoCard') private card: CardComponent;
 
     private slug: string = this.route.snapshot.params.slug;
-    private user_name: string;
+    private userName: string;
 
     hostConnected = this.socket.fromEvent<boolean>('host_connection');
 
@@ -51,7 +51,7 @@ export class ControlComponent implements OnInit {
 
     ngOnInit(): void {
         window.addEventListener('unload', (e) => {
-            this.socket.emit('leave_game', { name: 'Eric', slug: this.slug });
+            this.socket.emit('leave_game', { name: this.userName, slug: this.slug });
         });
         this.socket.on('number_called', ball => {
             this.cFacade.newBall(ball);
@@ -66,22 +66,22 @@ export class ControlComponent implements OnInit {
         });
 
         this.socket.on('clear_room', () => {
-            this.socket.emit('leave_game', { name: this.user_name, slug: this.slug });
+            this.socket.emit('leave_game', { name: this.userName, slug: this.slug });
             this.cFacade.reset();
             this.router.navigate(['/control', this.slug]);
         });
 
         window.addEventListener('resume', () => {
             console.log('[Control] User resumed session');
-            this.socket.emit('leave_game', { name: this.user_name, slug: this.slug });
-            this.socket.emit('join_game', { name: this.user_name, slug: this.slug });
+            this.socket.emit('leave_game', { name: this.userName, slug: this.slug });
+            this.socket.emit('join_game', { name: this.userName, slug: this.slug });
         });
 
         window.setInterval(this.checkResume, 1000);
     }
 
     join(name: string) {
-        this.user_name = name;
+        this.userName = name;
         this.socket.emit('join_game', { name, slug: this.slug });
         this.gameJoined = true;
         this.card.build();

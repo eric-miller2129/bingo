@@ -17,9 +17,12 @@ export class ControlComponent implements OnInit {
     @ViewChild('bingoCard') private card: CardComponent;
 
     private slug: string = this.route.snapshot.params.slug;
+    private user_name: string;
+
     hostConnected = this.socket.fromEvent<boolean>('host_connection');
 
     gameJoined = false;
+    timestamp = new Date().getTime();
 
     constructor(
         private route: ActivatedRoute,
@@ -63,16 +66,35 @@ export class ControlComponent implements OnInit {
         });
 
         this.socket.on('clear_room', () => {
-            this.socket.emit('leave_game', { name: 'Eric', slug: this.slug });
+            this.socket.emit('leave_game', { name: this.user_name, slug: this.slug });
             this.cFacade.reset();
             this.router.navigate(['/control', this.slug]);
         });
+
+        window.addEventListener('resume', () => {
+            console.log('[Control] User resumed session');
+            this.socket.emit('leave_game', { name: this.user_name, slug: this.slug });
+            this.socket.emit('join_game', { name: this.user_name, slug: this.slug });
+        });
+
+        window.setInterval(this.checkResume, 1000);
     }
 
     join(name: string) {
+        this.user_name = name;
         this.socket.emit('join_game', { name, slug: this.slug });
         this.gameJoined = true;
         this.card.build();
+    }
+
+    private checkResume() {
+        const current = new Date().getTime();
+        if (current - this.timestamp > 4000) {
+            const event = document.createEvent('Events');
+            event.initEvent('resume', true, true);
+            document.dispatchEvent(event);
+        }
+        this.timestamp = current;
     }
 
 }

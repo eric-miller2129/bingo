@@ -18,11 +18,26 @@
     [swalOptions]="{
         showCancelButton: false,
         input: 'text',
-        buttonClass: 'btn'
+        buttonClass: 'btn',
+        allowOutsideClick: false
     }"
     (confirm)="join($event)"
     #name>
     <ng-container *swalPortal>
         What's your name?
+    </ng-container>
+</swal>
+
+<swal
+    [swalOptions]="{
+        showCancelButton: false,
+        showConfirmButton: false,
+        icon: 'error',
+        title: 'Host not connected',
+        allowOutsideClick: false
+    }"
+    #notConnected>
+    <ng-container *swalPortal>
+        We have to wait for the host to connect to the game.
     </ng-container>
 </swal>

@@ -1,0 +1,21 @@
+.players {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    color: $black;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: rgba($black, 0.1);
+    padding: 10px;
+    line-height: 1;
+    border-radius: $border-radius;
+
+    svg {
+        display: block;
+        width: 15px;
+        margin-left: 5px;
+        fill: $black;
+    }
+}

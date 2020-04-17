@@ -10,36 +10,41 @@ import {
     selector: '[appCopyClipboard]'
 })
 export class CopyClipboardDirective {
-    // tslint:disable-next-line:no-input-rename
+    // tslint:disable-next-line: no-input-rename
     @Input('appCopyClipboard')
     public payload: string;
 
-    @Output() copied: EventEmitter<string> = new EventEmitter<string>();
+    // tslint:disable-next-line: no-input-rename
+    @Input('context')
+    public context: string;
+
+    // tslint:disable-next-line: no-output-rename
+    @Output('copied')
+    public copied: EventEmitter<string> = new EventEmitter<string>();
 
     @HostListener('click', ['$event'])
-    onClick(e: MouseEvent): void {
-        e.preventDefault();
+    public onClick(event: MouseEvent): void {
+        event.preventDefault();
 
-        // tslint:disable-next-line:curly
-        if (!this.payload) return;
+        if (!this.payload) { return; }
 
-        console.group('Copy Clipboard Directive');
-        console.log(`Value Copied: ${this.payload}`);
-        console.groupEnd();
+        const range = document.createRange();
+        range.selectNodeContents(document.body);
+        document.getSelection().addRange(range);
 
-        const listener = (event: ClipboardEvent) => {
-            // tslint:disable-next-line:no-string-literal
-            const clipboard = event.clipboardData || window['clipboardData'];
-
+        const listener = (e: ClipboardEvent) => {
+            // tslint:disable-next-line: no-string-literal
+            const clipboard = e.clipboardData || window['clipboardData'];
             clipboard.setData('text', this.payload.toString());
             e.preventDefault();
-
             this.copied.emit(this.payload);
         };
 
-        document.addEventListener('copy', listener, false);
+        document.addEventListener('copy', listener, false)
         document.execCommand('copy');
         document.removeEventListener('copy', listener, false);
+
+        document.getSelection().removeAllRanges();
     }
 
 }

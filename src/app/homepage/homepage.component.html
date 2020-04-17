@@ -46,41 +46,52 @@
                     </button>
                 </div>
             </form>
-            <div class="copyText" *ngIf="false">
-                <input
-                    type="text"
-                    [value]="url">
-                <span>
-                    {{ url }}
-                    <a
-                        href="#"
-                        [appCopyClipboard]="url"
-                        (copied)="copied($event)"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6 6V2c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-4v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h4zm2 0h4a2 2 0 0 1 2 2v4h4V2H8v4zM2 8v10h10V8H2z"/></svg>
-                    </a>
-                </span>
-            </div>
         </div>
     </div>
 </div>
 <swal
     [swalOptions]="{
-        toast: true,
-        position: 'top',
-        customClass: 'copyText--toast',
-        timer: 4000,
-        showConfirmButton: false,
-        showClass: {
-            popup: 'animated fadeInDown faster'
-        },
-        hideClass: {
-            popup: 'animated fadeOutUp faster'
-        }
+        icon: 'success',
+        title: 'Game Created',
+        confirmButtonText: 'Take me to the game'
     }"
-    #copySwal>
-
+    (confirm)="takeMeToTheGame()"
+    #success>
     <ng-container *swalPortal>
-        URL Copied
+        <p class="withMarginBottom">Your game has been created, you're ready to start bingoing!</p>
+        <h2 class="withMarginBottom">Game Url:</h2>
+        <p class="withMarginBottom">This is the URL you'll use to access your game and call numbers.</p>
+        <div class="copyText withMarginBottom">
+            <input
+                type="text"
+                [value]="gameUrl">
+            <span>
+                {{ gameUrl }}
+                <a
+                    href="#"
+                    [appCopyClipboard]="gameUrl"
+                    (copied)="copied($event)"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6 6V2c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-4v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h4zm2 0h4a2 2 0 0 1 2 2v4h4V2H8v4zM2 8v10h10V8H2z"/></svg>
+                </a>
+            </span>
+        </div>
+        <h2 class="withMarginBottom">Control Url:</h2>
+        <p class="withMarginBottom">This is the URL you'll use to access your card. Send this to all the players!</p>
+        <div class="copyText withMarginBottom">
+            <span>
+                {{ controlUrl }}
+                <a
+                    href="#"
+                    [appCopyClipboard]="controlUrl"
+                    (copied)="copied($event)"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6 6V2c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-4v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h4zm2 0h4a2 2 0 0 1 2 2v4h4V2H8v4zM2 8v10h10V8H2z"/></svg>
+                </a>
+            </span>
+        </div>
+        <p>
+            Don't worry if you forget these, we also emailed you the same links!
+        </p>
     </ng-container>
 </swal>

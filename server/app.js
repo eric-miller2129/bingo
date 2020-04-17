@@ -25,18 +25,53 @@ app.post('/created-game', (req, res) => {
     });
 });
 
+let playersCount = [];
+let hostsConnected = [];
+
 io.on('connection', (socket) => {
+
     socket.on('create_game', slug => {
-        console.log(`Creating game: ${slug}`);
         socket.join(slug);
+
+        playersCount[slug] = 0;
+        io.to(slug).emit('player_count', playersCount[slug]);
+
+        hostsConnected[slug] = true;
+        io.to(slug).emit('host_connection', hostsConnected[slug]);
+
+        console.log(hostsConnected);
+    });
+
+    socket.on('initial_join', slug => {
+        socket.join(slug);
+
+        if(!hostsConnected[slug]) {
+            hostsConnected[slug] = false;
+        }
+        io.to(slug).emit('host_connection', hostsConnected[slug]);
     });
 
     socket.on('join_game', data => {
         socket.join(data.slug);
         io.to(data.slug).emit('user_joined', data.name);
+
+        console.log(playersCount);
+        playersCount[data.slug]++;
+        io.to(data.slug).emit('player_count', playersCount[data.slug]);
+
+        if(!hostsConnected[data.slug]) {
+            hostsConnected[data.slug] = false;
+        }
+        io.to(data.slug).emit('host_connection', hostsConnected[data.slug]);
     });
+
     socket.on('leave_game', data => {
         io.to(data.slug).emit('user_left', data.name);
+
+        if(playersCount[data.slug] > 0) {
+            playersCount[data.slug]--;
+        }
+        io.to(data.slug).emit('player_count', playersCount[data.slug]);
     });
 
     socket.on('number_called', data => {
@@ -45,7 +80,17 @@ io.on('connection', (socket) => {
 
     socket.on('new_game', data => {
         io.to(data.previous).emit('new_game', data.new);
-    })
+    });
+
+    socket.on('host_left', slug => {
+        io.to(slug).emit('clear_room', slug);
+        // io.of('/').in(slug).clients((e, socketIds) => {
+        //     socketIds.forEach(socketId => io.sockets.sockets[socketId].leave(slug));
+        // });
+        hostsConnected[slug] = false;
+        playersCount[slug] = 0;
+        io.to(slug).emit('host_connection', hostsConnected[slug]);
+    });
 })
 
 http.listen(4444, '0.0.0.0');

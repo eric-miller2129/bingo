@@ -14,6 +14,8 @@ import { Socket } from 'ngx-socket-io';
 export class GameComponent implements OnInit {
     private slug = this.route.snapshot.params.slug;
 
+    playerCount = this.socket.fromEvent<number>('player_count');
+
     constructor(
         private toaster: ToastrService,
         private voice: VoiceService,
@@ -40,6 +42,10 @@ export class GameComponent implements OnInit {
                 progressAnimation: 'decreasing',
                 positionClass: 'toast-bottom-right'
             });
+        });
+
+        window.addEventListener('unload', (e) => {
+            this.socket.emit('host_left', this.slug);
         });
     }
 

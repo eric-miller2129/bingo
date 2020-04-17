@@ -39,7 +39,7 @@ export class ControlComponent implements OnInit {
                 this.notConnected.fire();
                 this.gameJoined = false;
 
-            } else if(!this.gameJoined) {
+            } else if (!this.gameJoined) {
                 this.notConnected.dismiss();
                 this.name.fire();
             }
@@ -64,6 +64,7 @@ export class ControlComponent implements OnInit {
 
         this.socket.on('clear_room', () => {
             this.socket.emit('leave_game', { name: 'Eric', slug: this.slug });
+            this.cFacade.reset();
             this.router.navigate(['/control', this.slug]);
         });
     }

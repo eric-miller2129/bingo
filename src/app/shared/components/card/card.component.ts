@@ -20,6 +20,8 @@ export class CardComponent implements OnInit {
         [0, 0, 0, 0, 0],
     );
 
+    selected: number[] = [];
+
     constructor(
         private settings: SettingsService,
         private gFacade: GameFacade,
@@ -40,6 +42,20 @@ export class CardComponent implements OnInit {
                     this.numbers[r][c] = this.randomNumber(this.gameSettings[c].min, this.gameSettings[c].max);
                 }
             }
+        }
+    }
+
+    toggleActive(c) {
+        // tslint:disable-next-line: curly
+        if (c === 'FREE') return;
+
+        if (this.selected.includes(c)) {
+            this.selected.splice(
+                this.selected.indexOf(c),
+                1
+            );
+        } else {
+            this.selected.push(c);
         }
     }
 
